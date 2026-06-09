@@ -1,0 +1,22 @@
+---
+ansible-navigator:
+  execution-environment:
+    container-engine: docker
+    enabled: true
+    environment-variables:
+      set:
+        ANSIBLE_CONFIG: /runner/project/.ansible.cfg
+        ANSIBLE_ROLES_PATH: /runner/project/roles
+    image: al95/ee-cloud-deploy:2.5
+    pull:
+      policy: never
+    volume-mounts:
+    - dest: /runner/project
+      src: .
+  logging:
+    file: .logs/ansible-navigator.log
+    level: info
+  mode: stdout
+  playbook-artifact:
+    enable: true
+    save-as: artifacts/{playbook_name}-{time_stamp}.json
